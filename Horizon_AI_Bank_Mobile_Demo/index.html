@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Horizon AI bank - Mobile Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="light">
+  <div class="demo-shell">
+    <aside class="demo-panel">
+      <div>
+        <div class="brand-lockup brand-lockup-panel" aria-label="Horizon AI bank">
+          <span class="brand-main">Horizon</span>
+          <span class="brand-ai">AI</span>
+          <span class="brand-main">bank</span>
+        </div>
+        <p class="brand-claim" data-i18n="brand_claim">Digital banking with contextual offers</p>
+        <p class="demo-kicker" data-i18n="demo_kicker">Clickable mobile demo</p>
+        <h1 data-i18n="panel_title">Nákup na edalnice.cz spouští push z Horizon AI bank s nabídkou pojištění vozidel.</h1>
+        <p class="demo-copy" data-i18n="panel_copy">
+          Demo simuluje externí nákup dálniční známky na webu `edalnice.cz`. Po úspěšné platbě banka rozpozná
+          transakci, odešle push notifikaci a po kliknutí otevře klientovi personalizovanou nabídku v mobilní aplikaci.
+        </p>
+      </div>
+
+      <div class="demo-notes">
+        <div class="note-card">
+          <span class="note-label" data-i18n="note_trigger_label">Trigger</span>
+          <strong data-i18n="note_trigger_title">Dálniční známka</strong>
+          <p data-i18n="note_trigger_copy">Platba na `edalnice.cz` vytvoří behaviorální signál pro vozidlo a aktivuje cross-sell logiku banky.</p>
+        </div>
+        <div class="note-card">
+          <span class="note-label" data-i18n="note_nba_label">Next best action</span>
+          <strong data-i18n="note_nba_title">Push od banky do appky</strong>
+          <p data-i18n="note_nba_copy">Po úspěšné platbě přijde push od Horizon AI bank a proklik vede přímo do připravené nabídky.</p>
+        </div>
+      </div>
+
+      <div class="panel-utility">
+        <div class="language-switch" role="group" aria-label="Language switch">
+          <button class="lang-button active" id="langCz" type="button">CZ</button>
+          <button class="lang-button" id="langEn" type="button">EN</button>
+        </div>
+
+        <div class="panel-actions">
+          <button class="secondary-button" id="themeToggle" type="button" data-i18n="theme_toggle">Přepnout motiv</button>
+          <button class="primary-button" id="restartDemo" type="button" data-i18n="restart_demo">Restart dema</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="phone-stage">
+      <section class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <header class="status-bar">
+            <span>9:41</span>
+            <div class="status-icons">
+              <span>5G</span>
+              <span>100%</span>
+            </div>
+          </header>
+
+          <section class="screen active" data-screen="home">
+            <div class="merchant-entry-card">
+              <div class="merchant-bar">
+                <span class="merchant-lock">🔒</span>
+                <span class="merchant-url">https://edalnice.cz</span>
+              </div>
+              <div class="merchant-entry-body">
+                <p class="eyebrow" data-i18n="home_eyebrow">External purchase journey</p>
+                <h2 data-i18n="home_title">Klient jde na edalnice.cz koupit dálniční známku.</h2>
+                <p data-i18n="home_copy">Demo začíná mimo bankovní prostředí. Banka vstupuje do scénáře až po zachycení karetní transakce a po vyhodnocení modelu.</p>
+                <button class="primary-button full-width" data-next="merchant" data-i18n="home_button">Pokračovat na edalnice.cz</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="screen" data-screen="merchant">
+            <div class="screen-heading">
+              <button class="back-button" data-back="home" type="button">&#8592;</button>
+              <div>
+                <p class="eyebrow" data-i18n="merchant_eyebrow">Externí web</p>
+                <h2>edalnice.cz</h2>
+              </div>
+            </div>
+
+            <div class="merchant-bar">
+              <span class="merchant-lock">🔒</span>
+              <span class="merchant-url">https://edalnice.cz</span>
+            </div>
+
+            <div class="selection-card merchant-card">
+              <p class="merchant-title" data-i18n="merchant_title">Elektronická dálniční známka</p>
+              <label class="field-label" for="plateInput" data-i18n="plate_label">SPZ vozidla</label>
+              <input id="plateInput" class="text-field" type="text" value="2AB 4587">
+
+              <label class="field-label" for="validitySelect" data-i18n="validity_label">Platnost</label>
+              <select id="validitySelect" class="text-field">
+                <option value="annual" data-i18n="validity_annual">Roční - 2 300 Kč</option>
+                <option value="monthly" data-i18n="validity_monthly">Měsíční - 430 Kč</option>
+                <option value="daily" data-i18n="validity_daily">Desetidenní - 270 Kč</option>
+              </select>
+
+              <div class="summary-row">
+                <span data-i18n="merchant_label">Obchodník</span>
+                <strong>edalnice.cz</strong>
+              </div>
+              <div class="summary-row">
+                <span data-i18n="amount_label">Částka</span>
+                <strong id="vignetteAmount">2 300 Kč</strong>
+              </div>
+            </div>
+
+            <button class="primary-button full-width" data-next="payment" data-i18n="merchant_button">Pokračovat k platbě na edalnice.cz</button>
+          </section>
+
+          <section class="screen" data-screen="payment">
+            <div class="screen-heading">
+              <button class="back-button" data-back="merchant" type="button">&#8592;</button>
+              <div>
+                <p class="eyebrow" data-i18n="payment_eyebrow">Platba</p>
+                <h2 data-i18n="payment_title">Vyberte způsob úhrady</h2>
+              </div>
+            </div>
+
+            <div class="payment-methods">
+              <button class="payment-option selected" type="button" data-method="Apple Pay">
+                <span class="payment-title">Apple Pay</span>
+                <span class="payment-copy" data-i18n="payment_fast">Rychlá platba</span>
+              </button>
+              <button class="payment-option" type="button" data-method="Google Pay">
+                <span class="payment-title">Google Pay</span>
+                <span class="payment-copy" data-i18n="payment_fast">Rychlá platba</span>
+              </button>
+              <button class="payment-option" type="button" data-method="Karta">
+                <span class="payment-title" data-i18n="payment_card_title">Platební karta</span>
+                <span class="payment-copy" data-i18n="payment_card_copy">Zadání údajů o kartě</span>
+              </button>
+            </div>
+
+            <div class="card-sheet">
+              <div class="summary-row">
+                <span data-i18n="purchase_type_label">Typ nákupu</span>
+                <strong data-i18n="purchase_type_value">Dálniční známka</strong>
+              </div>
+              <div class="summary-row">
+                <span>Web</span>
+                <strong>edalnice.cz</strong>
+              </div>
+              <div class="summary-row">
+                <span>SPZ</span>
+                <strong id="platePreview">2AB 4587</strong>
+              </div>
+              <div class="summary-row">
+                <span data-i18n="payment_label">Platba</span>
+                <strong id="paymentMethodLabel">Apple Pay</strong>
+              </div>
+              <div class="summary-row total-row">
+                <span data-i18n="total_label">Celkem</span>
+                <strong id="paymentAmount">2 300 Kč</strong>
+              </div>
+            </div>
+
+            <button class="primary-button full-width" id="confirmPayment" type="button" data-i18n="confirm_payment">Zaplatit a potvrdit</button>
+          </section>
+
+          <section class="screen" data-screen="success">
+            <div class="success-badge">&#10003;</div>
+            <p class="eyebrow" data-i18n="success_eyebrow">Platba na edalnice.cz</p>
+            <h2 data-i18n="success_title">Nákup dálniční známky byl úspěšně dokončen.</h2>
+            <p class="success-copy" data-i18n="success_copy">
+              Banka rozpoznala karetní transakci jako vehicle signal. Teď může poslat push notifikaci s nabídkou pojištění vozidel.
+            </p>
+            <div class="transaction-card">
+              <div class="summary-row">
+                <span>Web</span>
+                <strong>edalnice.cz</strong>
+              </div>
+              <div class="summary-row">
+                <span data-i18n="merchant_enough_label">Merchant</span>
+                <strong>edalnice.cz</strong>
+              </div>
+              <div class="summary-row">
+                <span data-i18n="amount_label">Částka</span>
+                <strong id="receiptAmount">2 300 Kč</strong>
+              </div>
+              <div class="summary-row">
+                <span data-i18n="payment_method_label">Platební metoda</span>
+                <strong id="receiptMethod">Apple Pay</strong>
+              </div>
+            </div>
+            <div class="model-status-card hidden" id="modelStatusCard">
+              <div class="model-status-topline">
+                <span>Horizon AI bank</span>
+                <span data-i18n="model_eval_label">Vyhodnocení modelu</span>
+              </div>
+              <strong data-i18n="model_eval_title">Vyhodnocujeme vhodnost nabídky.</strong>
+              <p data-i18n="model_eval_copy">Kontrolujeme transakční signál, mobilní aktivitu a pravděpodobnost zájmu o pojištění vozidla.</p>
+              <div class="model-progress">
+                <div class="model-progress-bar" id="modelProgressBar"></div>
+              </div>
+            </div>
+            <button class="secondary-button full-width" id="showPushNow" type="button" data-i18n="run_eval_button">Spustit vyhodnocení a poslat push</button>
+          </section>
+
+          <section class="screen" data-screen="offer">
+            <div class="offer-card">
+              <p class="eyebrow" data-i18n="offer_eyebrow">Personalizovaná nabídka</p>
+              <h2 data-i18n="offer_title">Pojištění vozidel k vaší nové cestě.</h2>
+              <p data-i18n="offer_copy">
+                Připravili jsme pro vás předvyplněnou nabídku pojištění vozidla.
+                Sjednání dokončíte online během několika minut.
+              </p>
+
+              <div class="offer-metrics">
+                <article>
+                  <span data-i18n="offer_price_label">Měsíčně od</span>
+                  <strong>589 Kč</strong>
+                </article>
+                <article>
+                  <span data-i18n="offer_process_label">Vyřízení</span>
+                  <strong data-i18n="offer_process_value">Online</strong>
+                </article>
+                <article>
+                  <span data-i18n="offer_duration_label">Odhad času</span>
+                  <strong data-i18n="offer_duration_value">2 min</strong>
+                </article>
+              </div>
+
+              <div class="offer-benefits">
+                <div class="benefit-row">
+                  <span>&#10003;</span>
+                  <p data-i18n="benefit_1">Asistence v ČR i zahraničí</p>
+                </div>
+                <div class="benefit-row">
+                  <span>&#10003;</span>
+                  <p data-i18n="benefit_2">Rychlé hlášení škody v appce</p>
+                </div>
+                <div class="benefit-row">
+                  <span>&#10003;</span>
+                  <p data-i18n="benefit_3">Sjednání do 2 minut s využitím stávajících dat klienta</p>
+                </div>
+              </div>
+
+              <button class="primary-button full-width" data-i18n="offer_button">Chci nabídku</button>
+              <button class="ghost-button full-width" data-back="home" type="button" data-i18n="back_home">Zpět na přehled</button>
+            </div>
+          </section>
+
+          <div class="push-card hidden" id="pushCard" role="button" tabindex="0" aria-label="Otevřít push notifikaci">
+            <div class="push-topline">
+              <span>Horizon AI bank</span>
+              <span data-i18n="push_now">teď</span>
+            </div>
+            <strong data-i18n="push_title">Máte v aplikaci novou nabídku pojištění k vozidlu.</strong>
+            <p data-i18n="push_copy">Otevřete aplikaci a zobrazte si detail nabídky.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
